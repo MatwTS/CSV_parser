@@ -15,8 +15,8 @@
 
 This project proposes a draft parser for CSV files.
 It includes:
-- 1 source file, main.rs: implementation, usage example, and unit tests.
-- 2 configuration files for cargo, Cargo.lock and Cargo.toml.
+- 1 source file, main.rs: implementation, usage examples, and unit tests
+- 2 configuration files for cargo, Cargo.lock and Cargo.toml
 - 1 CSV language description file, csv_description.ebnf
 - 1 Git configuration file, .gitignore
 - 1 CSV file example, biostats1.csv
@@ -119,7 +119,7 @@ Example output:
 Function used to print a CSV content into the terminal.
 
 ```
-pub fn pretty_print_csv(csv_lines: Vec<Vec<String>>
+pub fn pretty_print_csv(csv_lines: Vec<Vec<String>>)
 ```
 
 **Input:** A vector of vectors of strings (the parsed CSV lines).
@@ -230,7 +230,8 @@ https://docs.rs/nom/latest/nom/bytes/complete/index.html
 
 **nom::bytes::complete::is_not**
 
-Parse till certain characters are met.
+Parse till certain characters are met.<br>
+https://docs.rs/nom/latest/nom/bytes/complete/fn.is_not.html
 
 ---
 
