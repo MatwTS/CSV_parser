@@ -1,0 +1,7 @@
+csv       = { record, { "\n", record } };                       (* A CSV file contains one or more lines, separated by newline characters *)  
+record    = { field, { ",", field } };                          (* Inside a line (record), fields are separated by commas *)  
+field     = quoted_field | unquoted_field;                      (* A field can either be quoted or unquoted *)  
+quoted_field   = '"' , { character | escape }, '"' ;            (* Quoted text: enclosed in double quotes, with escape handling for inner quotes *)  
+unquoted_field = { character - ',' - '\n' };                    (* Unquoted text: any valid text except commas and newlines *)  
+character      = ? any valid character except comma or newline ?;  
+escape         = '"' '"' ;                                      (* Double quotes inside a field are escaped by doubling them *)  

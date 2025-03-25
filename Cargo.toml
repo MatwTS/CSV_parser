@@ -1,0 +1,8 @@
+[package]
+name = "CSV_parser"
+version = "0.1.0"
+authors = ["Matthieu MALFROY <m.malfroy@technologyandstrategy.com>"]
+edition = "2024"
+
+[dependencies]
+nom = "7.1"
