@@ -3,8 +3,8 @@
 ## Table of Contents  
 1. [Introduction](#introduction)  
 2. [Usage](#usage)  
-3. [The nom crate](#The nom crate)  
-4. [FeatProject licenseures](#Project license)  
+3. [The-nom-crate](#the-nom-crate)  
+4. [Project-license](#project-license)  
 
 ---
 
@@ -30,7 +30,7 @@ The `nom` crate is dual-licensed under the [MIT License](https://opensource.org/
 
 ## Usage
 
-### parse_csv
+### parse_csv
 
 Function used to parse a CSV file. Need the functions ```parse_record```, ```parse_field``` and ```clean_field```.
 
@@ -154,8 +154,8 @@ pub fn get_line_from_csv(input: &str, line_number: usize) -> Result<String, Stri
 - Ok(String): The retrieved line as a string, with fields separated by commas.
   Example output for `line_number = 1`: ```"Bert, M, 42, 68, 166"```
 - Err(String): An error message if the line doesn't exist or if parsing fails.
-    
-### get_col_from_csv
+
+### sum_col_from_csv
 
 ```
 pub fn get_col_from_csv(input: &str, col_number: usize) -> Result<Vec<String>, String> 
