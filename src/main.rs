@@ -90,13 +90,13 @@ mod csv_parser {
      * ---------------------------------------------------------
      * Input: A vector of vectors of strings (the parsed CSV lines).
      * Example input:
-     * ```
+     * 
      * vec![
      *     vec!["Alex", "M", "41", "74", "170"],
      *     vec!["Bert", "M", "42", "68", "166"],
      *     vec!["Carl", "F", "32", "70", "155"]
      * ]
-     * ```
+     *
      * 
      * Output: No return value (`()`), but prints the lines with aligned columns in the console.
      * Example output:
