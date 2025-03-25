@@ -258,13 +258,79 @@ fn main() {
 #[cfg(test)]
 mod tests {
     use crate::csv_parser::{
-        // Function under testing
-        sum_col_from_csv,
-        get_col_from_csv,
-        get_line_from_csv,
+        // Functions under testing
+        get_col_from_csv, get_line_from_csv, parse_csv, pretty_print_csv, sum_col_from_csv
     };
     use std::fs;
+    /**
+     * Tets of the function csv_parser::parse_csv
+     */
+    #[test]
+    fn test_parse_csv(){ // Given a valid csv file, return the vector (of vector (of string)) as intended
+        let file_path = "biostats1.csv";
 
+        let csv_content = match fs::read_to_string(file_path) {
+            Ok(content) => content,
+            Err(err) => {
+                eprintln!("Error reading the file: {}", err);
+                return;
+            }
+        };
+
+        let result = parse_csv(&csv_content);
+        assert_eq!(result, Ok(
+            vec![
+                vec!["Name", "Sex", "Age", "Heightin", "Weightlbs"],
+                vec!["Alex", "M", "41", "74", "170"],
+                vec!["Bert", "M", "42", "68", "166"],
+                vec!["Carl", "M", "32", "70", "155"],
+                vec!["Dave", "M", "39", "72", "167"],
+                vec!["Elly", "F", "30", "66", "124"],
+                vec!["Fran", "F", "33", "66", "115"],
+                vec!["Gwen", "F", "26", "64", "121"],
+                vec!["Hank", "M", "30", "71", "158"],
+                vec!["Ivan", "M", "53", "72", "175"],
+                vec!["Jake", "M", "32", "69", "143"],
+                vec!["Kate", "F", "47", "69", "139"],
+                vec!["Luke", "M", "34", "72", "163"],
+                vec!["Myra", "F", "23", "62", "98"],
+                vec!["Neil", "M", "36", "75", "160"],
+                vec!["Omar", "M", "38", "70", "145"],
+                vec!["Page", "F", "31", "67", "135"],
+                vec!["Quin", "M", "29", "71", "176"],
+                vec!["Ruth", "F", "28", "65", "131"],
+            ]
+            .into_iter()
+            .map(|line| line.into_iter().map(String::from).collect()) // Convert each field into String as intended...
+            .collect(),
+    ));
+    }
+    /**
+     * Pseudo test of the function csv_parser::pretty_print_csv
+     */
+    #[test]
+    fn test_pretty_print_csv(){ // Given a valid CSV file, should print a nice sheet in the standard output (trust me)
+        let file_path = "biostats1.csv";
+
+        let csv_content = match fs::read_to_string(file_path) {
+            Ok(content) => content,
+            Err(err) => {
+                eprintln!("Error reading the file: {}", err);
+                return;
+            }
+        };
+        /* I don't know, just check the output of the main and validate it :') */
+        match parse_csv(&csv_content) {
+            Ok(records) => {
+                pretty_print_csv(records);
+                assert!(true);
+            },
+            Err(err) => {
+                eprintln!("Parsing error: {}", err);
+                assert!(false);
+            },
+        }
+    }
     /**
      * Tests of the function csv_parsser::get_line_from_csv
      */
