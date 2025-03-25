@@ -1,4 +1,5 @@
-# CSV parser in Rust
+# CSV parser in Rust
+
 
 ## Table of Contents  
 1. [Introduction](#introduction)  
