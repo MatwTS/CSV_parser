@@ -172,7 +172,11 @@ pub fn get_col_from_csv(input: &str, col_number: usize) -> Result<Vec<String>, S
   Example output for `col_number = 0`: ```["Name", "Alex", "Bert", "Carl", "Dave", ... ,"Ruth"]```
 - Err(String): An error message if the column doesn't exist or if parsing fails.
 
-### sum_col_from_csv
+### sum_col_from_csv
+
+```
+pub fn sum_col_from_csv(input: &str, col_number: usize) -> Result<i32, String>
+```
 
 **Input:** 
 - `input`: CSV content as `&str`.
