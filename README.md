@@ -155,7 +155,9 @@ pub fn get_line_from_csv(input: &str, line_number: usize) -> Result<String, Stri
   Example output for `line_number = 1`: ```"Bert, M, 42, 68, 166"```
 - Err(String): An error message if the line doesn't exist or if parsing fails.
 
-### sum_col_from_csv
+### get_col_from_csv
+
+Function to get a specific column from a CSV file.
 
 ```
 pub fn get_col_from_csv(input: &str, col_number: usize) -> Result<Vec<String>, String> 
@@ -169,17 +171,17 @@ pub fn get_col_from_csv(input: &str, col_number: usize) -> Result<Vec<String>, S
 - Ok(Vec<String>): The retrieved column as a vector of string.
   Example output for `col_number = 0`: ```["Name", "Alex", "Bert", "Carl", "Dave", ... ,"Ruth"]```
 - Err(String): An error message if the column doesn't exist or if parsing fails.
-     
-### get_col_from_csv
+
+### sum_col_from_csv
 
 **Input:** 
 - `input`: CSV content as `&str`.
-- `col_number`: Column number to retrieve.
+- `col_number`: Column number to sum.
 
-**Output:** `Result<Vec<String>, String>`
-- Ok(Vec<String>): The retrieved column as a vector of string.
-  Example output for `col_number = 0`: ```["Name", "Alex", "Bert", "Carl", "Dave", ... ,"Ruth"]```
-- Err(String): An error message if the column doesn't exist or if parsing fails.
+**Output:** `Result<i32, String>`
+- Ok(i32): The retrieved column as a vector of string.
+  Example output for `col_number = 4`: `2641`
+- Err(String): An error message if the column doesn't exist, if parsing fails or if the column is composed by non-digit.
      
 ---
 
@@ -190,8 +192,10 @@ pub fn get_col_from_csv(input: &str, col_number: usize) -> Result<Vec<String>, S
 **nom::IResult**
 
 Holds the result of parsing functions. I for input, O for ouput and E for error.
+```
 Ok((I,O))
 Err(Err<E>)
+```
 https://docs.rs/nom/latest/nom/type.IResult.html
 
 ### multi module
@@ -199,21 +203,21 @@ https://docs.rs/nom/latest/nom/type.IResult.html
 **nom::multi::separated_list1**
 
 Alternates between two parsers to produce a list of elements until ```Err::Error```.
-```separated_list1(sep,f)``` => parses the separator ```sep``` between list of elements ```f```.
+```separated_list1(sep,f)``` => parses the separator ```sep``` between list of elements ```f```.<br>
 https://docs.rs/nom/latest/nom/multi/fn.separated_list1.html
 
 ### character module
 
 **nom::character::complete**
 
-Functions recognizing spectif characters. Example ```newline``` matches a newline character ```\n```.
+Functions recognizing spectif characters. Example ```newline``` matches a newline character ```\n```.<br>
 https://docs.rs/nom/latest/nom/character/complete/index.html
 
 ### bytes module
 
 **nom::bytes::complete**
 
-Parsers recognizing bytes streams, complete input version.
+Parsers recognizing bytes streams, complete input version.<br>
 https://docs.rs/nom/latest/nom/bytes/complete/index.html
 
 **nom::bytes::complete::is_not**

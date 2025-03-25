@@ -175,16 +175,16 @@ mod csv_parser {
     }
 
         /**
-     *                       get_col_from_csv
+     *                       sum_col_from_csv
      * ---------------------------------------------------------
      * Input: 
      * - `input`: CSV content as `&str`.
-     * - `col_number`: Column number to retrieve.
+     * - `col_number`: Column number to sum.
      * 
-     * Output: `Result<Vec<String>, String>`
-     * - Ok(Vec<String>): The retrieved column as a vector of string.
-     *   Example output for `col_number = 0`: ["Name", "Alex", "Bert", "Carl", "Dave", ... ,"Ruth"]
-     * - Err(String): An error message if the column doesn't exist or if parsing fails.
+     * Output: `Result<i32, String>`
+     * - Ok(i32): The summed column as a i32.
+     *   Example output for `col_number = 4`: 2641
+     * - Err(String): An error message if the column doesn't exist, if parsing fails or if the column is composed by non-digit.
      */
     pub fn sum_col_from_csv(input: &str, col_number: usize) -> Result<i32, String> {
         match get_col_from_csv(input, col_number) {
