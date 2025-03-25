@@ -174,6 +174,8 @@ pub fn get_col_from_csv(input: &str, col_number: usize) -> Result<Vec<String>, S
 
 ### sum_col_from_csv
 
+Function to sum a column full of numbers, from a CSV file.
+
 ```
 pub fn sum_col_from_csv(input: &str, col_number: usize) -> Result<i32, String>
 ```
