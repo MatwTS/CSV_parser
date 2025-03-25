@@ -19,14 +19,14 @@ It includes:
 - 2 configuration files for cargo, Cargo.lock and Cargo.toml.
 - 1 CSV language description file, csv_description.ebnf
 - 1 Git configuration file, .gitignore
-- 1 CSV file example
+- 1 CSV file example, biostats1.csv
 - 1 LICENSE
 - 1 documentation file, README.md
 
 ### Crate used
 
 This project uses the [nom](https://crates.io/crates/nom) crate for parsing CSV files.  
-The `nom` crate is dual-licensed under the [MIT License](https://opensource.org/licenses/MIT).
+The `nom` crate is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
 ---
 
