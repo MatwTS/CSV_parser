@@ -2,12 +2,9 @@
 
 ## Table of Contents  
 1. [Introduction](#introduction)  
-2. [Installation](#installation)  
-3. [Usage](#usage)  
-4. [Features](#features)  
-5. [Contributing](#contributing)  
-6. [License](#license)  
-7. [Acknowledgments](#acknowledgments)  
+2. [Usage](#usage)  
+3. [The nom crate](#The nom crate)  
+4. [FeatProject licenseures](#Project license)  
 
 ---
 
@@ -186,7 +183,7 @@ pub fn get_col_from_csv(input: &str, col_number: usize) -> Result<Vec<String>, S
      
 ---
 
-## Items used from the nom crate
+## The nom crate
 
 ### Type Aliase
 
@@ -225,6 +222,6 @@ Parse till certain characters are met.
 
 ---
 
-## Project License
+## Project license
 
 This project is licensed under the [MIT License](./LICENSE).
