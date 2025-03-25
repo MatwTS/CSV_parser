@@ -27,8 +27,8 @@ mod csv_parser {
      */
     pub fn parse_csv(input: &str) -> Result<Vec<Vec<String>>, String> {
         match separated_list1(newline, parse_record)(input) {
-            Ok((_, records)) => Ok(records), // Return successfully parsed lines.
-            Err(_) => Err("Error while parsing the CSV".to_string()), // Error handling if parsing fails.
+            Ok((_, records)) => Ok(records), // Return successfully parsed lines
+            Err(_) => Err("Error while parsing the CSV".to_string()), // Error handling if parsing fails
         }
     }
 
@@ -45,7 +45,7 @@ mod csv_parser {
      *   Ok(("", vec!["Alex", "M", "41", "74", "170"]))
      */
     fn parse_record(input: &str) -> IResult<&str, Vec<String>> {
-        separated_list1(char(','), parse_field)(input) // Split a CSV line into fields based on commas.
+        separated_list1(char(','), parse_field)(input) // Split a CSV line into fields based on commas
     }
 
     /**
@@ -61,8 +61,8 @@ mod csv_parser {
      *   Ok(("", "Alex".to_string()))
      */
     fn parse_field(input: &str) -> IResult<&str, String> {
-        let (next_input, field) = is_not(",\n")(input)?; // Read until the next comma or newline.
-        let cleaned_field = clean_field(field); // Clean the field (e.g., remove spaces, special characters).
+        let (next_input, field) = is_not(",\n")(input)?; // Read until the next comma or newline
+        let cleaned_field = clean_field(field); // Clean the field (e.g., remove spaces, special characters)
         Ok((next_input, cleaned_field))
     }
 
@@ -81,7 +81,7 @@ mod csv_parser {
     fn clean_field(field: &str) -> String {
         field
             .chars()
-            .filter(|c| c.is_alphanumeric()) // Keep only alphanumeric characters.
+            .filter(|c| c.is_alphanumeric()) // Keep only alphanumeric characters
             .collect()
     }
 
@@ -116,9 +116,9 @@ mod csv_parser {
 
         for line in csv_lines {
             for cell in line {
-                print!("{:15} ", cell); // Align columns with fixed-width formatting.
+                print!("{:15} ", cell); // Align columns with fixed-width formatting
             }
-            println!(); // New line after each CSV line.
+            println!(); // New line after each CSV line
         }
     }
 
@@ -138,9 +138,9 @@ mod csv_parser {
         match parse_csv(input) {
             Ok(records) => records
                 .get(line_number)
-                .map(|line| line.join(", ")) // Join fields with commas.
+                .map(|line| line.join(", ")) // Join fields with commas
                 .ok_or_else(|| format!("Line number {} could not be found in the CSV file.", line_number)),
-            Err(e) => Err(format!("Parsing error: {}", e)), // Error handling in case of parsing issues.
+            Err(e) => Err(format!("Parsing error: {}", e)), // Error handling in case of parsing issues
         }
     }
 
@@ -177,6 +177,7 @@ mod csv_parser {
         /**
      *                       sum_col_from_csv
      * ---------------------------------------------------------
+     * /!\ Consider that the first line is a header so it ignores it
      * Input: 
      * - `input`: CSV content as `&str`.
      * - `col_number`: Column number to sum.
@@ -190,11 +191,11 @@ mod csv_parser {
         match get_col_from_csv(input, col_number) {
             Ok(column) => {
                 Ok(column
-                    .iter()
+                    .iter() // For each element (string) of the column
                     .skip(1) // To ignore column header
                     .map(|value| value.parse::<i32>().map_err(|_| format!("Invalid number: {}", value))) // Convert in i32
-                    .collect::<Result<Vec<i32>, String>>()? // Collect or return an error
-                    .iter()
+                    .collect::<Result<Vec<i32>, String>>()? // Collect as a i32 vector or return an error
+                    .iter() // For each element (i32) of the column, except the header
                     .sum::<i32>() // Sum each number
                 )
             }
@@ -214,6 +215,7 @@ fn main() {
     };
     use std::fs;
 
+    // Load the CSV file
     let file_path = "biostats1.csv";
 
     let csv_content = match fs::read_to_string(file_path) {
@@ -224,23 +226,27 @@ fn main() {
         }
     };
 
+    // Parse and print the CSV file :)
     match parse_csv(&csv_content) {
         Ok(records) => pretty_print_csv(records),
         Err(err) => eprintln!("Parsing error: {}", err),
     }
 
+    // Getting data from the third line of the CSV file
     let line_number = 2;
     match get_line_from_csv(&csv_content, line_number) {
         Ok(line) => println!("Line {}: {}", line_number, line),
         Err(err) => eprintln!("Error: {}", err),
     }
 
+    // Getting data fro the first line of the CSV file
     let col_number = 0;
     match get_col_from_csv(&csv_content, col_number) {
         Ok(column) => println!("Column {}: {:?}", col_number, column),
         Err(err) => eprintln!("Error: {}", err),
     }
 
+    // Sum the 5th column (weigth) of the CSV file
     let col_to_sum = 4;
     match sum_col_from_csv(&csv_content, col_to_sum) {
         Ok(sum) => println!("Sum of the column {}: {:?}", col_to_sum, sum),
@@ -252,6 +258,7 @@ fn main() {
 #[cfg(test)]
 mod tests {
     use crate::csv_parser::{
+        // Function under testing
         sum_col_from_csv,
         get_col_from_csv,
         get_line_from_csv,
@@ -262,7 +269,7 @@ mod tests {
      * Tests of the function csv_parsser::get_line_from_csv
      */
     #[test]
-    fn test_get_valid_line_from_csv() { // Given a valid line number of the CSV, return the corresponding line as string.
+    fn test_get_valid_line_from_csv() { // Given a valid line number of the CSV, return the corresponding line as string
         let file_path = "biostats1.csv";
 
         let csv_content = match fs::read_to_string(file_path) {
@@ -278,7 +285,7 @@ mod tests {
     }
 
     #[test]
-    fn test_get_invalid_line_from_csv() { // Given a invalid line number of the CSV, return the corresponding error.
+    fn test_get_invalid_line_from_csv() { // Given a invalid line number of the CSV, return the corresponding error
         let file_path = "biostats1.csv";
 
         let csv_content = match fs::read_to_string(file_path) {
@@ -297,7 +304,7 @@ mod tests {
      * Tests of the function csv_parsser::get_col_from_csv
      */
     #[test]
-    fn test_get_valid_col_from_csv() { // Given a valid column number of the CSV, return the corresponding vector of string.
+    fn test_get_valid_col_from_csv() { // Given a valid column number of the CSV, return the corresponding vector of string
         let file_path = "biostats1.csv";
 
         let csv_content = match fs::read_to_string(file_path) {
@@ -336,7 +343,7 @@ mod tests {
     }
 
     #[test]
-    fn test_get_invalid_col_from_csv() { // Given a invalid column number of the CSV, return the corresponding error.
+    fn test_get_invalid_col_from_csv() { // Given a invalid column number of the CSV, return the corresponding error
         let file_path = "biostats1.csv";
 
         let csv_content = match fs::read_to_string(file_path) {
@@ -371,7 +378,7 @@ mod tests {
     }
 
     #[test]
-    fn test_sum_col_of_string() { // Given a column number of a string column from the CSV, return the corresponding error.
+    fn test_sum_col_of_string() { // Given a column number of a string column from the CSV, return the corresponding error
         let file_path = "biostats1.csv";
 
         let csv_content = match fs::read_to_string(file_path) {
@@ -387,7 +394,7 @@ mod tests {
     }
 
     #[test]
-    fn test_sum_col_with_outofbound_number() { // Given a invalid column number of the CSV, return the corresponding error.
+    fn test_sum_col_with_outofbound_number() { // Given a invalid column number of the CSV, return the corresponding error
         let file_path = "biostats1.csv";
 
         let csv_content = match fs::read_to_string(file_path) {
