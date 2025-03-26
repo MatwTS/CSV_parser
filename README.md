@@ -140,12 +140,12 @@ Bert            M               42              68              166
 Carl            F               32              70              155
 ```
  
-### get_line_from_csv
+### parse_and_get_line_from_csv
 
-Function to get a specific line from a CSV file.
+Function to get a specific line from a CSV file (not currently parsed).
 
 ```
-pub fn get_line_from_csv(input: &str, line_number: usize) -> Result<String, String>
+pub fn parse_and_get_line_from_csv(input: &str, line_number: usize) -> Result<String, String>
 ```
 
 **Input:**
@@ -157,12 +157,12 @@ pub fn get_line_from_csv(input: &str, line_number: usize) -> Result<String, Stri
   Example output for `line_number = 1`: ```"Bert, M, 42, 68, 166"```
 - Err(String): An error message if the line doesn't exist or if parsing fails.
 
-### get_col_from_csv
+### parse_and_get_col_from_csv
 
-Function to get a specific column from a CSV file.
+Function to get a specific column from a CSV file (not currently parsed).
 
 ```
-pub fn get_col_from_csv(input: &str, col_number: usize) -> Result<Vec<String>, String> 
+pub fn parse_and_get_col_from_csv(input: &str, col_number: usize) -> Result<Vec<String>, String> 
 ```
 
 **Input:** 
@@ -174,12 +174,12 @@ pub fn get_col_from_csv(input: &str, col_number: usize) -> Result<Vec<String>, S
   Example output for `col_number = 0`: ```["Name", "Alex", "Bert", "Carl", "Dave", ... ,"Ruth"]```
 - Err(String): An error message if the column doesn't exist or if parsing fails.
 
-### sum_col_from_csv
+### parse_and_sum_col_from_csv
 
-Function to sum a column full of numbers, from a CSV file.
+Function to sum a column full of numbers, from a CSV file (not curretly parsed).
 
 ```
-pub fn sum_col_from_csv(input: &str, col_number: usize) -> Result<i32, String>
+pub fn parse_and_sum_col_from_csv(input: &str, col_number: usize) -> Result<i32, String>
 ```
 
 **Input:** 
